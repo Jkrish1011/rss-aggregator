@@ -39,6 +39,7 @@ func main() {
 	// We need to hook up our handler function
 	v1Router := chi.NewRouter()
 	v1Router.Get("/healthz", handlerRediness)
+	v1Router.Get("/err", handlerErr)
 	// Hooking up a router under v1 so that it is easy to debug, make new release etc.
 	router.Mount("/v1", v1Router)
 

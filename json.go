@@ -24,3 +24,17 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.WriteHeader(code)
 	w.Write(data)
 }
+
+func respondWithError(w http.ResponseWriter, code int, msg string) {
+	// For all internal bugs/problems
+	if code > 499 {
+		log.Println("Responding with 5XX error:", msg)
+	}
+
+	type ErrorResponse struct {
+		Error string `json:"error"` // indicating the when marshalling, the key of this string will be error
+	}
+	respondWithJSON(w, code, ErrorResponse{
+		Error: msg,
+	})
+}
