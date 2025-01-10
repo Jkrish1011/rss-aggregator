@@ -1,3 +1,5 @@
+// Helper Functions
+
 package main
 
 import (
