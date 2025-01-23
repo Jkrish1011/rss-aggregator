@@ -35,8 +35,19 @@ func (apiCfg *apiConfig) handlerCreateFeed(w http.ResponseWriter, r *http.Reques
 	})
 
 	if err != nil {
-		respondWithError(w, 400, fmt.Sprintf("Couldn't create user:%s", err))
+		respondWithError(w, 400, fmt.Sprintf("Couldn't create Feed:%s", err))
 		return
 	}
 	respondWithJSON(w, 201, databaseFeedtoFeed(feed))
+}
+
+func (apiCfg *apiConfig) handlerGetFeeds(w http.ResponseWriter, r *http.Request) {
+
+	feeds, err := apiCfg.DB.GetFeeds(r.Context())
+
+	if err != nil {
+		respondWithError(w, 400, fmt.Sprintf("Couldn't get Feeds:%s", err))
+		return
+	}
+	respondWithJSON(w, 201, databaseFeedstoFeeds(feeds))
 }
